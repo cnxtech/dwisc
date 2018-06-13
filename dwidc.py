@@ -122,11 +122,10 @@ def main(args):
     print_err('')
     print_err('starting collection:')
 
-    delta = float('inf')
-    delta_delta = float('inf')
+    max_delta = float('inf')
     collected = 0
     solutions_all = None
-    while delta_delta >= args.threshold or delta >= args.threshold:
+    while max_delta >= args.threshold:
         submitted_problems = []
         problem_index = 0
 
@@ -186,16 +185,9 @@ def main(args):
         print_err('  pr: {}'.format([solution['pr'] for solution in solutions_all['solutions']]))
         #print_err(solutions_all)
 
-        if delta_delta == float('inf'):
-            delta_delta = max_delta
-        else:
-            delta_delta = abs(max_delta - delta)
-        delta = max_delta
-
         print_err('  max pr delta: {}'.format(max_delta))
-        print_err('  delta delta: {}'.format(delta_delta))
         print_err('')
-
+        
 
     print_err('')
     total_collected = sum(solution['num_occurrences'] for solution in solutions_all['solutions'])
